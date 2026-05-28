@@ -1,135 +1,391 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1.0" />
-<title>MK Collage</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manohar Kabeer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+    :root {
+      --black: #0a0a0a;
+      --white: #f5f0eb;
+      --gold: #c9a96e;
+      --muted: rgba(245, 240, 235, 0.55);
+    }
 
-body{
-background:#0f0f0f;
-overflow:hidden;
-height:100vh;
-font-family:sans-serif;
-}
+    html { scroll-behavior: smooth; }
 
-.wrapper{
-position:relative;
-width:100vw;
-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-overflow:hidden;
-}
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
 
-.collage{
-position:relative;
-width:min(92vw,1400px);
-border-radius:24px;
-box-shadow:0 30px 80px rgba(0,0,0,.45);
-will-change:transform;
-transition:transform .4s ease;
-}
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 2rem 3.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
 
-.glow{
-position:absolute;
-width:500px;
-height:500px;
-border-radius:50%;
-background:radial-gradient(circle, rgba(255,255,255,.12), transparent 60%);
-pointer-events:none;
-mix-blend-mode:screen;
-transform:translate(-50%,-50%);
-}
+    .mk-logo {
+      width: 52px; height: 52px;
+      flex-shrink: 0;
+    }
 
-.grain{
-position:absolute;
-inset:0;
-pointer-events:none;
-opacity:.06;
-background-image:url('https://grainy-gradients.vercel.app/noise.svg');
-}
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
 
-.caption{
-position:absolute;
-bottom:30px;
-left:40px;
-color:white;
-font-size:12px;
-letter-spacing:.12em;
-text-transform:uppercase;
-opacity:.65;
-}
-</style>
+    .nav-links a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      transition: opacity 0.25s;
+    }
+    .nav-links a:hover { opacity: 1; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 9rem 4rem 4rem 4rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.75rem;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.2rem, 5.5vw, 6rem);
+      font-weight: 900;
+      line-height: 1.0;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.9s 0.15s ease both;
+    }
+
+    h1 em {
+      font-style: italic;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .tagline {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--muted);
+      max-width: 380px;
+      margin-bottom: 3rem;
+      animation: fadeUp 0.9s 0.3s ease both;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 0.3rem;
+      width: fit-content;
+      transition: gap 0.3s, color 0.3s;
+      animation: fadeUp 0.9s 0.45s ease both;
+    }
+    .cta:hover { gap: 1.25rem; color: var(--gold); }
+
+    .hero-visual {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      animation: zoomIn 8s ease forwards;
+    }
+
+    .hero-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, var(--black) 0%, transparent 40%);
+      z-index: 1;
+    }
+
+    .hero-visual::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 40%;
+      background: linear-gradient(to top, var(--black), transparent);
+      z-index: 1;
+    }
+
+    /* ── BIO ── */
+    .bio {
+      padding: 8rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .bio-aside {
+      position: sticky;
+      top: 8rem;
+    }
+
+    .section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+
+    .bio-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 7rem;
+      line-height: 1;
+      color: rgba(255,255,255,0.04);
+      user-select: none;
+      margin-top: -1rem;
+    }
+
+    .bio h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3vw, 3rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 2.5rem;
+    }
+
+    .bio p {
+      font-size: 1.05rem;
+      line-height: 1.95;
+      color: var(--muted);
+      margin-bottom: 1.75rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 2.5rem;
+    }
+
+    .tag {
+      padding: 0.45rem 1.1rem;
+      border: 1px solid rgba(201,169,110,0.35);
+      color: var(--gold);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* ── RULE ── */
+    .rule {
+      margin: 0 4rem;
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+
+    /* ── SIGNATURE ── */
+    .sig-section {
+      padding: 6rem 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .sig-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .sig-svg {
+      width: 200px;
+      filter: drop-shadow(0 0 18px rgba(201,169,110,0.25));
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 1.75rem 3.5rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.06em;
+    }
+
+    footer .mk-mark {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(1.06); }
+      to   { transform: scale(1); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      nav { padding: 1.5rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+
+      .hero { grid-template-columns: 1fr; }
+      .hero-visual { height: 55vh; order: -1; }
+      .hero-visual::before {
+        background: linear-gradient(to top, var(--black) 0%, transparent 60%);
+      }
+      .hero-text { padding: 3rem 1.5rem 5rem; }
+
+      .bio {
+        grid-template-columns: 1fr;
+        padding: 4rem 1.5rem;
+        gap: 1.5rem;
+      }
+      .bio-aside { position: static; }
+      .bio-num { display: none; }
+      .rule { margin: 0 1.5rem; }
+      .sig-section { padding: 4rem 1.5rem; }
+      footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
 </head>
 <body>
 
-<div class="wrapper">
+  <!-- NAV -->
+  <nav>
+    <svg class="mk-logo" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="MK">
+      <rect x="0.5" y="0.5" width="51" height="51" rx="3.5" stroke="#c9a96e" stroke-opacity="0.5" fill="none"/>
+      <rect x="2" y="2" width="48" height="48" rx="2.5" fill="#c9a96e" fill-opacity="0.06"/>
+      <!-- M -->
+      <polyline points="8,38 8,14 18,28 28,14 28,38" stroke="#c9a96e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <!-- K -->
+      <line x1="33" y1="14" x2="33" y2="38" stroke="#c9a96e" stroke-width="1.7" stroke-linecap="round"/>
+      <polyline points="33,26 44,14" stroke="#c9a96e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <polyline points="33,26 44,38" stroke="#c9a96e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
 
-<div class="glow" id="glow"></div>
+    <ul class="nav-links">
+      <li><a href="#bio">About</a></li>
+      <li><a href="#ventures">Ventures</a></li>
+      <li><a href="#connect">Connect</a></li>
+    </ul>
+  </nav>
 
-<img
-id="collage"
-class="collage"
-src="collage.png"
-alt="collage"
-/>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <p class="eyebrow">Entrepreneur &amp; Founder</p>
+      <h1>Manohar<br><em>Kabeer</em></h1>
+      <p class="tagline">Building ventures at the intersection of vision and relentless execution. Creating things that matter.</p>
+      <a href="#bio" class="cta">Read more <span>→</span></a>
+    </div>
+    <div class="hero-visual">
+      <img src="collage.jpg" alt="Manohar Kabeer">
+    </div>
+  </section>
 
-<div class="grain"></div>
+  <!-- BIO -->
+  <section class="bio" id="bio">
+    <div class="bio-aside">
+      <p class="section-label">Biography</p>
+      <div class="bio-num">01</div>
+    </div>
+    <div>
+      <h2>Building from the ground up.</h2>
+      <p>Manohar Kabeer is an entrepreneur and founder driven by a relentless pursuit of ideas that challenge the status quo. With a foundation built on bold thinking and decisive action, he has dedicated his career to creating ventures that leave a lasting impact.</p>
+      <p>His approach combines strategic vision with hands-on execution — turning concepts into companies, and ambitions into reality. He believes the best businesses are built at the edge of what's possible, and that the courage to start is the rarest skill of all.</p>
+      <p>Based at the intersection of technology, culture, and commerce, Manohar continues to identify white spaces, build teams, and move fast.</p>
+      <div class="tags" id="ventures">
+        <span class="tag">Ventures</span>
+        <span class="tag">Strategy</span>
+        <span class="tag">Innovation</span>
+        <span class="tag">Leadership</span>
+        <span class="tag">Growth</span>
+      </div>
+    </div>
+  </section>
 
-<div class="caption">
-move your cursor · click to zoom
-</div>
+  <hr class="rule">
 
-</div>
+  <!-- SIGNATURE -->
+  <div class="sig-section" id="connect">
+    <p class="sig-label">Manohar Kabeer</p>
+    <svg class="sig-svg" viewBox="0 0 200 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- M - cursive signature strokes -->
+      <path d="M8 60 C9 48, 11 35, 16 24 C19 17, 23 14, 26 22 C29 30, 31 42, 34 48 C37 54, 40 50, 43 42 C46 34, 48 20, 52 15 C55 11, 57 17, 57 30 C57 43, 55 56, 55 62"
+            stroke="#c9a96e" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <!-- K - cursive strokes -->
+      <path d="M73 16 C73 30, 73 46, 73 62"
+            stroke="#c9a96e" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+      <path d="M73 40 C80 35, 90 26, 102 16"
+            stroke="#c9a96e" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+      <path d="M75 43 C84 51, 96 57, 108 66"
+            stroke="#c9a96e" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+      <!-- underline flourish -->
+      <path d="M8 68 C35 73, 70 74, 110 68"
+            stroke="#c9a96e" stroke-width="0.7" stroke-linecap="round" fill="none" opacity="0.4"/>
+    </svg>
+  </div>
 
-<script>
-const collage = document.getElementById('collage');
-const glow = document.getElementById('glow');
-
-let zoomed = false;
-
-window.addEventListener('mousemove', e => {
-const x = e.clientX / window.innerWidth;
-const y = e.clientY / window.innerHeight;
-
-const moveX = (x - 0.5) * 20;
-const moveY = (y - 0.5) * 20;
-
-collage.style.transform =
-`translate(${moveX}px, ${moveY}px) scale(${zoomed ? 1.18 : 1})`;
-
-glow.style.left = `${e.clientX}px`;
-glow.style.top = `${e.clientY}px`;
-});
-
-collage.addEventListener('click', () => {
-zoomed = !zoomed;
-
-collage.style.transform =
-zoomed
-? 'scale(1.18)'
-: 'scale(1)';
-});
-
-setInterval(() => {
-collage.animate([
-{ transform:'translateY(0px)' },
-{ transform:'translateY(-8px)' },
-{ transform:'translateY(0px)' }
-],{
-duration:6000,
-iterations:Infinity
-});
-},1000);
-</script>
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2026 Manohar Kabeer</span>
+    <span class="mk-mark">MK</span>
+    <span>mankabeer.github.io</span>
+  </footer>
 
 </body>
 </html>
