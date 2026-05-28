@@ -1,390 +1,557 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manohar Kabeer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <title>manohar kabeer</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black: #0a0a0a;
-      --white: #f5f0eb;
-      --gold: #c9a96e;
-      --muted: rgba(245, 240, 235, 0.55);
+      --bg:     #0d0d0d;
+      --fg:     #ebebeb;
+      --muted:  rgba(235, 235, 235, 0.42);
+      --border: rgba(235, 235, 235, 0.1);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--black);
-      color: var(--white);
-      font-family: 'Inter', sans-serif;
-      font-weight: 300;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'DM Mono', monospace;
+      font-weight: 400;
+      font-size: 14px;
       overflow-x: hidden;
     }
 
-    /* ── NAV ── */
+    /* nav */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      padding: 2rem 3.5rem;
+      padding: 1.4rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      z-index: 100;
+      z-index: 50;
+      background: linear-gradient(to bottom, rgba(13,13,13,0.88) 0%, transparent 100%);
     }
 
-    .mk-logo {
-      width: 52px; height: 52px;
-      flex-shrink: 0;
-    }
+    .mk { font-size: 0.85rem; letter-spacing: 0.06em; color: var(--fg); text-decoration: none; }
 
-    .nav-links {
-      display: flex;
-      gap: 2.5rem;
-      list-style: none;
-    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
 
     .nav-links a {
-      color: var(--white);
-      text-decoration: none;
-      font-size: 0.72rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      opacity: 0.6;
-      transition: opacity 0.25s;
-    }
-    .nav-links a:hover { opacity: 1; }
-
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .hero-text {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 9rem 4rem 4rem 4rem;
-      position: relative;
-      z-index: 2;
-    }
-
-    .eyebrow {
-      font-size: 0.72rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1.75rem;
-      animation: fadeUp 0.9s ease both;
-    }
-
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(3.2rem, 5.5vw, 6rem);
-      font-weight: 900;
-      line-height: 1.0;
-      margin-bottom: 2rem;
-      animation: fadeUp 0.9s 0.15s ease both;
-    }
-
-    h1 em {
-      font-style: italic;
-      font-weight: 700;
-      color: var(--gold);
-    }
-
-    .tagline {
-      font-size: 1.05rem;
-      line-height: 1.8;
       color: var(--muted);
-      max-width: 380px;
-      margin-bottom: 3rem;
-      animation: fadeUp 0.9s 0.3s ease both;
-    }
-
-    .cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      color: var(--white);
       text-decoration: none;
       font-size: 0.72rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      border-bottom: 1px solid var(--gold);
-      padding-bottom: 0.3rem;
-      width: fit-content;
-      transition: gap 0.3s, color 0.3s;
-      animation: fadeUp 0.9s 0.45s ease both;
+      letter-spacing: 0.1em;
+      transition: color 0.2s;
     }
-    .cta:hover { gap: 1.25rem; color: var(--gold); }
+    .nav-links a:hover { color: var(--fg); }
 
-    .hero-visual {
+    /* hero */
+    .hero {
       position: relative;
+      height: 100vh;
+      width: 100%;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
     }
 
-    .hero-visual img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .hero-img {
       display: block;
-      animation: zoomIn 8s ease forwards;
+      max-width: 100%;
+      height: 100%;
+      width: auto;
+      object-fit: contain;
+      will-change: transform;
+      animation: kb 18s ease-in-out infinite alternate;
     }
 
-    .hero-visual::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(105deg, var(--black) 0%, transparent 40%);
-      z-index: 1;
+    @keyframes kb {
+      0%   { transform: scale(1.0)  translate(0%,     0%);   }
+      33%  { transform: scale(1.03) translate(-1.2%,  0.6%); }
+      66%  { transform: scale(1.05) translate(1%,    -0.8%); }
+      100% { transform: scale(1.02) translate(0.4%,   0.4%); }
     }
 
-    .hero-visual::after {
+    .hero::after {
       content: '';
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      height: 40%;
-      background: linear-gradient(to top, var(--black), transparent);
-      z-index: 1;
+      height: 32%;
+      background: linear-gradient(to top, var(--bg) 0%, transparent 100%);
+      pointer-events: none;
     }
 
-    /* ── BIO ── */
-    .bio {
-      padding: 8rem 4rem;
-      max-width: 1200px;
+    .hero-footer {
+      position: absolute;
+      bottom: 2rem;
+      left: 2rem;
+      right: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      z-index: 2;
+    }
+
+    .hero-name { font-size: 0.78rem; letter-spacing: 0.12em; color: var(--fg); }
+
+    .hero-roles {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-align: right;
+      line-height: 2;
+    }
+
+    /* shared */
+    .wrap {
+      max-width: 820px;
       margin: 0 auto;
+      padding: 5.5rem 2rem;
+    }
+
+    .rule { border: none; border-top: 1px solid var(--border); }
+
+    .label {
+      display: block;
+      font-size: 0.62rem;
+      letter-spacing: 0.28em;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    /* quote */
+    .quote {
+      font-family: 'DM Sans', sans-serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1.15rem, 2.5vw, 1.8rem);
+      line-height: 1.65;
+      color: var(--fg);
+      text-align: center;
+    }
+
+    /* statement */
+    .statement {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: clamp(1.55rem, 3.4vw, 2.5rem);
+      line-height: 1.35;
+      color: var(--fg);
+    }
+
+    .attr {
+      display: block;
+      margin-top: 1.5rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    /* two-col */
+    .two-col {
       display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 5rem;
+      grid-template-columns: 160px 1fr;
+      gap: 3rem;
       align-items: start;
     }
 
-    .bio-aside {
-      position: sticky;
-      top: 8rem;
+    /* list */
+    .list { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+
+    .list li {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: var(--fg);
+      padding-left: 1.1rem;
+      position: relative;
     }
 
-    .section-label {
-      font-size: 0.68rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1.25rem;
+    .list li::before { content: '—'; position: absolute; left: 0; color: var(--muted); }
+
+    /* blockquote */
+    .bq {
+      border-left: 1px solid var(--border);
+      padding-left: 1.25rem;
+      font-family: 'DM Sans', sans-serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 0.95rem;
+      line-height: 1.85;
+      color: var(--fg);
     }
 
-    .bio-num {
-      font-family: 'Playfair Display', serif;
-      font-size: 7rem;
-      line-height: 1;
-      color: rgba(255,255,255,0.04);
-      user-select: none;
-      margin-top: -1rem;
+    /* card grid */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border);
     }
 
-    .bio h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 3vw, 3rem);
-      font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: 2.5rem;
-    }
+    .card { padding: 1.75rem; border-right: 1px solid var(--border); }
+    .card:last-child { border-right: none; }
 
-    .bio p {
-      font-size: 1.05rem;
-      line-height: 1.95;
+    .card-title { font-size: 0.65rem; letter-spacing: 0.2em; color: var(--muted); margin-bottom: 1rem; }
+    .card-sub   { font-size: 0.7rem; color: var(--muted); margin: 0.2rem 0 0.9rem; font-style: italic; }
+    .card .bq   { font-size: 0.85rem; }
+    .card-foot  { margin-top: 1.25rem; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--muted); }
+
+    /* two lists */
+    .two-list { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+
+    /* prod */
+    .prod { display: flex; gap: 4rem; align-items: flex-start; }
+
+    .prod-title { font-size: 2.2rem; font-weight: 400; letter-spacing: -0.01em; line-height: 1; }
+    .prod-meta  { font-size: 0.65rem; letter-spacing: 0.14em; color: var(--muted); margin-top: 0.6rem; }
+
+    .prod-steps { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; padding-top: 0.1rem; }
+    .prod-steps li {
+      font-family: 'DM Sans', sans-serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 0.82rem;
       color: var(--muted);
-      margin-bottom: 1.75rem;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-top: 2.5rem;
-    }
-
-    .tag {
-      padding: 0.45rem 1.1rem;
-      border: 1px solid rgba(201,169,110,0.35);
-      color: var(--gold);
-      font-size: 0.68rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    /* ── RULE ── */
-    .rule {
-      margin: 0 4rem;
-      border: none;
-      border-top: 1px solid rgba(255,255,255,0.07);
-    }
-
-    /* ── SIGNATURE ── */
-    .sig-section {
-      padding: 6rem 4rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2rem;
-    }
-
-    .sig-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.45em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.3);
-    }
-
-    .sig-svg {
-      width: 200px;
-      filter: drop-shadow(0 0 18px rgba(201,169,110,0.25));
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      padding: 1.75rem 3.5rem;
-      border-top: 1px solid rgba(255,255,255,0.07);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.72rem;
-      color: rgba(255,255,255,0.3);
       letter-spacing: 0.06em;
     }
 
-    footer .mk-mark {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--gold);
-      letter-spacing: 0.2em;
+    /* 441 */
+    .four41-note {
+      font-family: 'DM Sans', sans-serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 0.88rem;
+      line-height: 2.1;
+      color: var(--muted);
     }
 
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(28px); }
-      to   { opacity: 1; transform: translateY(0); }
+    /* descriptors */
+    .descriptors {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem 2.5rem;
+      justify-content: center;
+      padding: 4rem 2rem;
     }
 
-    @keyframes zoomIn {
-      from { transform: scale(1.06); }
-      to   { transform: scale(1); }
+    .descriptors span { font-size: 0.68rem; letter-spacing: 0.22em; color: var(--muted); }
+
+    /* footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.75rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
     }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 860px) {
-      nav { padding: 1.5rem 1.5rem; }
-      .nav-links { gap: 1.5rem; }
+    footer .final {
+      font-family: 'DM Sans', sans-serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 0.88rem;
+      color: var(--fg);
+    }
 
-      .hero { grid-template-columns: 1fr; }
-      .hero-visual { height: 55vh; order: -1; }
-      .hero-visual::before {
-        background: linear-gradient(to top, var(--black) 0%, transparent 60%);
-      }
-      .hero-text { padding: 3rem 1.5rem 5rem; }
-
-      .bio {
-        grid-template-columns: 1fr;
-        padding: 4rem 1.5rem;
-        gap: 1.5rem;
-      }
-      .bio-aside { position: static; }
-      .bio-num { display: none; }
-      .rule { margin: 0 1.5rem; }
-      .sig-section { padding: 4rem 1.5rem; }
-      footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    /* mobile */
+    @media (max-width: 620px) {
+      .hero-footer { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+      .hero-roles  { text-align: left; }
+      .two-col     { grid-template-columns: 1fr; gap: 1.25rem; }
+      .two-list    { grid-template-columns: 1fr; gap: 2rem; }
+      .cards       { grid-template-columns: 1fr; }
+      .card        { border-right: none; border-bottom: 1px solid var(--border); }
+      .card:last-child { border-bottom: none; }
+      .prod        { flex-direction: column; gap: 1.5rem; }
+      .wrap        { padding: 4rem 1.25rem; }
+      footer       { flex-direction: column; gap: 0.75rem; text-align: center; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
+  <!-- nav -->
   <nav>
-    <svg class="mk-logo" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="MK">
-      <rect x="0.5" y="0.5" width="51" height="51" rx="3.5" stroke="#c9a96e" stroke-opacity="0.5" fill="none"/>
-      <rect x="2" y="2" width="48" height="48" rx="2.5" fill="#c9a96e" fill-opacity="0.06"/>
-      <!-- M -->
-      <polyline points="8,38 8,14 18,28 28,14 28,38" stroke="#c9a96e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      <!-- K -->
-      <line x1="33" y1="14" x2="33" y2="38" stroke="#c9a96e" stroke-width="1.7" stroke-linecap="round"/>
-      <polyline points="33,26 44,14" stroke="#c9a96e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      <polyline points="33,26 44,38" stroke="#c9a96e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    </svg>
-
+    <a href="/" class="mk">mk</a>
     <ul class="nav-links">
-      <li><a href="#bio">About</a></li>
-      <li><a href="#ventures">Ventures</a></li>
-      <li><a href="#connect">Connect</a></li>
+      <li><a href="#work">work</a></li>
+      <li><a href="#about">about</a></li>
+      <li><a href="#journal">journal</a></li>
+      <li><a href="#connect">contact</a></li>
     </ul>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-text">
-      <p class="eyebrow">Entrepreneur &amp; Founder</p>
-      <h1>Manohar<br><em>Kabeer</em></h1>
-      <p class="tagline">Building ventures at the intersection of vision and relentless execution. Creating things that matter.</p>
-      <a href="#bio" class="cta">Read more <span>→</span></a>
+  <!-- hero: collage image, fully visible, slow moving -->
+  <div class="hero">
+    <img class="hero-img" src="collage.jpg" alt="manohar kabeer collage">
+    <div class="hero-footer">
+      <span class="hero-name">manohar kabeer</span>
+      <div class="hero-roles">filmmaker<br>producer<br>storyteller</div>
     </div>
-    <div class="hero-visual">
-      <img src="collage.jpg" alt="Manohar Kabeer">
-    </div>
-  </section>
+  </div>
 
-  <!-- BIO -->
-  <section class="bio" id="bio">
-    <div class="bio-aside">
-      <p class="section-label">Biography</p>
-      <div class="bio-num">01</div>
-    </div>
-    <div>
-      <h2>Building from the ground up.</h2>
-      <p>Manohar Kabeer is an entrepreneur and founder driven by a relentless pursuit of ideas that challenge the status quo. With a foundation built on bold thinking and decisive action, he has dedicated his career to creating ventures that leave a lasting impact.</p>
-      <p>His approach combines strategic vision with hands-on execution — turning concepts into companies, and ambitions into reality. He believes the best businesses are built at the edge of what's possible, and that the courage to start is the rarest skill of all.</p>
-      <p>Based at the intersection of technology, culture, and commerce, Manohar continues to identify white spaces, build teams, and move fast.</p>
-      <div class="tags" id="ventures">
-        <span class="tag">Ventures</span>
-        <span class="tag">Strategy</span>
-        <span class="tag">Innovation</span>
-        <span class="tag">Leadership</span>
-        <span class="tag">Growth</span>
-      </div>
-    </div>
-  </section>
+  <!-- opening quote -->
+  <div class="wrap">
+    <p class="quote">
+      "i don't just want to make films.<br>
+      i want to build worlds for them to live in."
+    </p>
+  </div>
 
   <hr class="rule">
 
-  <!-- SIGNATURE -->
-  <div class="sig-section" id="connect">
-    <p class="sig-label">Manohar Kabeer</p>
-    <svg class="sig-svg" viewBox="0 0 200 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- M - cursive signature strokes -->
-      <path d="M8 60 C9 48, 11 35, 16 24 C19 17, 23 14, 26 22 C29 30, 31 42, 34 48 C37 54, 40 50, 43 42 C46 34, 48 20, 52 15 C55 11, 57 17, 57 30 C57 43, 55 56, 55 62"
-            stroke="#c9a96e" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      <!-- K - cursive strokes -->
-      <path d="M73 16 C73 30, 73 46, 73 62"
-            stroke="#c9a96e" stroke-width="1.4" stroke-linecap="round" fill="none"/>
-      <path d="M73 40 C80 35, 90 26, 102 16"
-            stroke="#c9a96e" stroke-width="1.4" stroke-linecap="round" fill="none"/>
-      <path d="M75 43 C84 51, 96 57, 108 66"
-            stroke="#c9a96e" stroke-width="1.4" stroke-linecap="round" fill="none"/>
-      <!-- underline flourish -->
-      <path d="M8 68 C35 73, 70 74, 110 68"
-            stroke="#c9a96e" stroke-width="0.7" stroke-linecap="round" fill="none" opacity="0.4"/>
-    </svg>
+  <!-- statement -->
+  <div class="wrap">
+    <p class="statement">
+      builder of ideas,<br>
+      curator of people,<br>
+      lover of stories.
+      <span class="attr">— mk</span>
+    </p>
   </div>
 
-  <!-- FOOTER -->
-  <footer>
-    <span>© 2026 Manohar Kabeer</span>
-    <span class="mk-mark">MK</span>
-    <span>mankabeer.github.io</span>
+  <hr class="rule">
+
+  <!-- what drives me -->
+  <div class="wrap" id="about">
+    <div class="two-col">
+      <span class="label">what drives me</span>
+      <ul class="list">
+        <li>meaning over everything</li>
+        <li>stories that stay</li>
+        <li>people over profit</li>
+        <li>honesty in craft</li>
+        <li>lifelong learning</li>
+        <li>freedom with responsibility</li>
+        <li>building things that outlive me</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <!-- vision -->
+  <div class="wrap">
+    <div class="two-col">
+      <span class="label">vision</span>
+      <div class="bq">
+        to create iconic cultural companies<br>
+        that inspire, employ and empower.
+      </div>
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <!-- current orbit -->
+  <div class="wrap">
+    <span class="label">current orbit</span>
+    <div class="two-list">
+      <ul class="list">
+        <li>filmmaking &amp; producing</li>
+        <li>content &amp; ip development</li>
+        <li>platforms &amp; marketplaces</li>
+        <li>communities &amp; networks</li>
+      </ul>
+      <ul class="list">
+        <li>strategic partnerships</li>
+        <li>brand &amp; design</li>
+        <li>writing &amp; essays</li>
+        <li>investments &amp; ventures</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <!-- ventures -->
+  <div class="wrap" id="work">
+    <span class="label">ventures</span>
+    <div class="cards">
+      <div class="card">
+        <p class="card-title">preposition studio</p>
+        <p class="card-sub">/prepəˈzɪʃən/</p>
+        <div class="bq">the space before everything changes.</div>
+        <p class="card-foot">story · strategy · systems</p>
+      </div>
+      <div class="card">
+        <p class="card-title">soundboard</p>
+        <div class="bq">a private network for opportunities and collaboration.</div>
+      </div>
+      <div class="card">
+        <p class="card-title">backdoor</p>
+        <div class="bq">the smartest way to get discovered and hired.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <!-- 441 forever -->
+  <div class="wrap">
+    <div class="two-col">
+      <div>
+        <span class="label">441 forever</span>
+        <ul class="list" style="gap:0.4rem;">
+          <li>4 people</li>
+          <li>4 corners</li>
+          <li>1 purpose</li>
+        </ul>
+      </div>
+      <p class="four41-note">
+        the four<br>
+        my people<br>
+        my corner<br>
+        my purpose<br>
+        my forever
+      </p>
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <!-- prod -->
+  <div class="wrap">
+    <div class="prod">
+      <div>
+        <p class="prod-title">prod.</p>
+        <p class="prod-meta">scene 23 · take 7</p>
+      </div>
+      <ul class="prod-steps">
+        <li>dream</li>
+        <li>plan</li>
+        <li>execute</li>
+        <li>repeat</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <!-- how i show up / things that ground me -->
+  <div class="wrap">
+    <div class="two-list">
+      <div>
+        <span class="label">how i show up</span>
+        <ul class="list">
+          <li>calm but intense</li>
+          <li>empathetic but firm</li>
+          <li>observant &amp; thoughtful</li>
+          <li>high standards</li>
+          <li>low ego</li>
+          <li>loyal</li>
+          <li>protective of my people</li>
+          <li>always learning</li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">things that ground me</span>
+        <ul class="list">
+          <li>family</li>
+          <li>close friends</li>
+          <li>good conversations</li>
+          <li>nature</li>
+          <li>books</li>
+          <li>quiet mornings</li>
+          <li>music</li>
+          <li>training</li>
+          <li>gratitude</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <!-- writer at heart -->
+  <div class="wrap" id="journal">
+    <div class="two-col">
+      <span class="label">writer at heart</span>
+      <div class="bq">
+        trying to make sense of things.<br>
+        putting thoughts into words.<br>
+        books, essays, letters.
+      </div>
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <!-- in progress -->
+  <div class="wrap">
+    <div class="two-col">
+      <span class="label">in progress</span>
+      <ul class="list">
+        <li>scale preposition studio</li>
+        <li>launch soundboard</li>
+        <li>build backdoor</li>
+        <li>produce films that matter</li>
+        <li>write more, publish often</li>
+        <li>travel, learn, evolve</li>
+        <li>create a home of peace</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <!-- note to self -->
+  <div class="wrap">
+    <div class="two-col">
+      <span class="label">note to self</span>
+      <div>
+        <div class="bq">
+          don't rush.<br>
+          keep building.<br>
+          the right things take time.
+        </div>
+        <div class="bq" style="margin-top:1.75rem;">
+          trust the process.<br>
+          enjoy the journey.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <!-- aesthetics quote -->
+  <div class="wrap">
+    <p class="quote">
+      "i like my aesthetics clean,<br>
+      my life meaningful,<br>
+      and my work impactful."
+    </p>
+  </div>
+
+  <hr class="rule">
+
+  <!-- descriptor words -->
+  <div class="descriptors">
+    <span>creative</span>
+    <span>empathetic</span>
+    <span>disciplined</span>
+    <span>ambitious</span>
+    <span>curious</span>
+    <span>grounded</span>
+    <span>loyal</span>
+  </div>
+
+  <!-- footer -->
+  <footer id="connect">
+    <p class="final">building a legacy that blends art, impact and enterprise.</p>
+    <span>© mk · 2026</span>
   </footer>
 
 </body>
