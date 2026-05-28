@@ -1,0 +1,37 @@
+index.html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>MK Collage</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    img {
+      width: 92vw;
+      max-width: 1400px;
+      border-radius: 24px;
+      transition: transform .5s ease;
+      cursor: zoom-in;
+      box-shadow: 0 20px 80px rgba(0,0,0,.45);
+    }
+
+    img:hover {
+      transform: scale(1.02);
+    }
+  </style>
+</head>
+
+<body>
+  <img src="collage.png" alt="Collage">
+</body>
+</html>
